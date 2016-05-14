@@ -1,0 +1,41 @@
+{
+  "name": "tslint-checkstyle-jenkins-reporter",
+  "version": "1.0.0",
+  "description": "tslint checkstyle reporter, compatible with jenkins",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolas-schmitt/tslint-junit-xml.git"
+  },
+  "keywords": [
+    "tslint",
+    "junit",
+    "reporter"
+  ],
+  "author": "Nicolas Schmitt <https://github.com/nicolas-schmitt>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolas-schmitt/tslint-junit-xml/issues"
+  },
+  "homepage": "https://github.com/nicolas-schmitt/tslint-junit-xml#readme",
+  "dependencies": {
+    "lodash": "^4.11.2",
+    "plexer": "^1.0.1",
+    "readable-stream": "^2.1.2",
+    "vinyl": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
+    "chai-string": "^1.2.0",
+    "chai-xml": "^0.3.1",
+    "gulp": "^3.9.1",
+    "gulp-tslint": "^5.0.0",
+    "gulp-typescript": "^2.13.0",
+    "mocha": "^2.4.5",
+    "typescript": "^1.8.10"
+  }
+}
