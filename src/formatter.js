@@ -1,8 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-
-const DefaultSeverity = 'warning';
 const DefaultPosition = {
     position: 0,
     lineAndCharacter: {
@@ -13,7 +11,9 @@ const DefaultPosition = {
 
 class Formatter {
     constructor(options) {
-        this.options = options;
+        this.options = _.defaults(options, {
+            severity: 'error'
+        });
     }
     
     formatStream(files) {
@@ -37,8 +37,9 @@ class Formatter {
         const line = start.lineAndCharacter.line;
         const character = start.lineAndCharacter.character;
         const message = _.escape(failure.failure);
+        const severity = this.options.severity;
         
-        return `<error line="${line}" column="${character}" severity="${DefaultSeverity}" message="${message}" source="${failure.ruleName}"/>`;
+        return `<error line="${line}" column="${character}" severity="${severity}" message="${message}" source="${failure.ruleName}"/>`;
     }
 }
 
