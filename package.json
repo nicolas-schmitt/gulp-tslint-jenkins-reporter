@@ -21,6 +21,7 @@
     "url": "https://github.com/nicolas-schmitt/tslint-junit-xml/issues"
   },
   "homepage": "https://github.com/nicolas-schmitt/tslint-junit-xml#readme",
+  "engines" : { "node" : ">=4.0.0" },
   "dependencies": {
     "lodash": "^4.11.2",
     "plexer": "^1.0.1",
