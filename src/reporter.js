@@ -20,6 +20,8 @@ function report(options) {
     const stream = plexer({ objectMode: true }, inputStream, outputStream);
     let filesBuffer = [];
     
+    options = options || {};
+    
     _.defaults(options, {
         sort: false,
         filename: 'checkstyle.xml',
@@ -31,11 +33,11 @@ function report(options) {
     const formatter = new Formatter(options);
     
     inputStream._transform = function(file, unused, done) {
-        let vinyl = new File(file);
-        let path = getReportedFilePath(options, vinyl);
+        const vinyl = new File(file);
+        const reportPath = getReportedFilePath(options, vinyl);
         filesBuffer.push({
-            xml: formatter.formatFile(path, file.tslint.failures),
-            path: path
+            xml: formatter.formatFile(reportPath, file.tslint.failures),
+            path: reportPath
         });
 
         outputStream.write(file);
@@ -47,8 +49,8 @@ function report(options) {
             filesBuffer = _.sortBy(filesBuffer, 'path');
         }
         
-        let report = formatter.formatStream(filesBuffer, options);
-        fs.writeFile(options.filename, report, function(err) {
+        const content = formatter.formatStream(filesBuffer, options);
+        fs.writeFile(options.filename, content, function(err) {
             if (err) {
                 console.error(err);
             }
@@ -65,7 +67,7 @@ function getReportedFilePath(options, vinyl) {
     
     if (options) {
         if (options.pathBase) {
-            let index = result.indexOf(options.pathBase);
+            const index = result.indexOf(options.pathBase);
             if (index > 0) {
                 result = result.substr(index + options.pathBase.length);
             }

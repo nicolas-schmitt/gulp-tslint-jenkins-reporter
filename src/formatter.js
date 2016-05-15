@@ -17,7 +17,7 @@ class Formatter {
     }
     
     formatStream(files) {
-        let xml = _.map(files, 'xml');
+        const xml = _.map(files, 'xml');
         
         return `<?xml version="1.0" encoding="utf-8"?>\n<checkstyle version="4.3">${xml}</checkstyle>`;
     }

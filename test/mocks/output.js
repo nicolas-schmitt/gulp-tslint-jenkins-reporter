@@ -2,14 +2,14 @@
 
 const _ = require('lodash');
 
-let clean = {
+const clean = {
     fileName: 'clean.ts',
     path: '/home/ubuntu/workspace/sandbox/data/clean.ts',
     failures: [
     ]
 };
 
-let dirty = {
+const dirty = {
     fileName: 'dirty.ts',
     path: '/home/ubuntu/workspace/sandbox/data/dirty.ts',
     failures: [
@@ -18,7 +18,7 @@ let dirty = {
     ]
 };
 
-let awful = {
+const awful = {
     fileName: 'awful.ts',
     path: '/home/ubuntu/workspace/sandbox/data/awful.ts',
     failures: [

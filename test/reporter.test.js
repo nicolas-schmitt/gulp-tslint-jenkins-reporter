@@ -13,27 +13,27 @@ describe('reporter', function() {
     
     describe('#getReportedFilePath', function() {
         it('shouldn\'t rebase the path when options.pathBase is undefined', function() {
-            let actual = reporter.getReportedFilePath({}, vinlyShim);
+            const actual = reporter.getReportedFilePath({}, vinlyShim);
             expect(actual).to.be.equal(vinlyShim.path);
         });
 
         it('shouldn\'t rebase the path when options.pathBase is empty', function() {
-            let actual = reporter.getReportedFilePath({pathBase: ''}, vinlyShim);
+            const actual = reporter.getReportedFilePath({pathBase: ''}, vinlyShim);
             expect(actual).to.be.equal(vinlyShim.path);
         });
 
         it('should rebase the path when options.pathBase is set', function() {
-            let actual = reporter.getReportedFilePath({pathBase: '/workspace'}, vinlyShim);
+            const actual = reporter.getReportedFilePath({pathBase: '/workspace'}, vinlyShim);
             expect(actual).to.be.equal('/src/file.js');
         });
         
         it('should prepend the path when options.pathPrefix is set', function() {
-            let actual = reporter.getReportedFilePath({pathPrefix: '/project'}, vinlyShim);
+            const actual = reporter.getReportedFilePath({pathPrefix: '/project'}, vinlyShim);
             expect(actual).to.be.equal('/project' + vinlyShim.path);
         });
         
         it('should prepend and rebase the path when both options are set', function() {
-            let actual = reporter.getReportedFilePath({
+            const actual = reporter.getReportedFilePath({
                 pathBase: '/workspace',
                 pathPrefix: '/project'
             }, vinlyShim);

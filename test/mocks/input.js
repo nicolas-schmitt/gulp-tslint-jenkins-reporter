@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     clean: {
         basename: 'clean.ts',
