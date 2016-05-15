@@ -1,26 +1,29 @@
 {
-  "name": "tslint-checkstyle-jenkins-reporter",
+  "name": "gulp-tslint-jenkins-reporter",
   "version": "1.0.0",
-  "description": "tslint checkstyle reporter, compatible with jenkins",
+  "description": "gulp-tslint checkstyle reporter, to be used by Jenkins (Hudson). Writes output to an xml file.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nicolas-schmitt/tslint-junit-xml.git"
+    "url": "git+https://github.com/nicolas-schmitt/gulp-tslint-jenkins-reporter.git"
   },
   "keywords": [
+    "gulp",
     "tslint",
-    "junit",
-    "reporter"
+    "checkstyle",
+    "reporter",
+    "jenkins",
+    "hudson"
   ],
   "author": "Nicolas Schmitt <https://github.com/nicolas-schmitt>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nicolas-schmitt/tslint-junit-xml/issues"
+    "url": "https://github.com/nicolas-schmitt/gulp-tslint-jenkins-reporter/issues"
   },
-  "homepage": "https://github.com/nicolas-schmitt/tslint-junit-xml#readme",
+  "homepage": "https://github.com/nicolas-schmitt/gulp-tslint-jenkins-reporter#readme",
   "engines": {
     "node": ">=4.0.0"
   },
