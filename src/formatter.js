@@ -10,8 +10,8 @@ const DefaultPosition = {
 };
 
 class Formatter {
-    constructor(options) {
-        this.options = _.defaults(options, {
+    constructor(settings) {
+        this.settings = _.defaults(settings, {
             severity: 'error'
         });
     }
@@ -37,7 +37,7 @@ class Formatter {
         const line = start.lineAndCharacter.line;
         const character = start.lineAndCharacter.character;
         const message = _.escape(failure.failure);
-        const severity = this.options.severity;
+        const severity = this.settings.severity;
         
         return `<error line="${line}" column="${character}" severity="${severity}" message="${message}" source="${failure.ruleName}"/>`;
     }
