@@ -1,17 +1,19 @@
 'use strict';
 
 const _ = require('lodash');
-const path = require('path');
 const File = require('vinyl');
-const Stream = require('readable-stream');
-const plexer = require('plexer');
 const fs = require('fs');
+const path = require('path');
+const plexer = require('plexer');
+const Stream = require('readable-stream');
+const upath = require('upath');
 
 const Formatter = require('./formatter');
 
 module.exports = {
-    report: report,
-    getReportedFilePath: getReportedFilePath
+    getReportedFilePath: getReportedFilePath,
+    getSettings: getSettings,
+    report: report
 };
 
 function report(options) {
@@ -20,21 +22,12 @@ function report(options) {
     const stream = plexer({ objectMode: true }, inputStream, outputStream);
     let filesBuffer = [];
     
-    options = options || {};
-    
-    _.defaults(options, {
-        sort: false,
-        filename: 'checkstyle.xml',
-        severity: 'error',
-        pathBase: '',
-        pathPrefix: ''
-    });
-    
-    const formatter = new Formatter(options);
+    const settings = getSettings(options);
+    const formatter = new Formatter(settings);
     
     inputStream._transform = function(file, unused, done) {
         const vinyl = new File(file);
-        const reportPath = getReportedFilePath(options, vinyl);
+        const reportPath = getReportedFilePath(settings, vinyl);
         filesBuffer.push({
             xml: formatter.formatFile(reportPath, file.tslint.failures),
             path: reportPath
@@ -45,12 +38,12 @@ function report(options) {
     };
     
     inputStream._flush = function(done) {
-        if (options.sort) {
+        if (settings.sort) {
             filesBuffer = _.sortBy(filesBuffer, 'path');
         }
         
-        const content = formatter.formatStream(filesBuffer, options);
-        fs.writeFile(options.filename, content, function(err) {
+        const content = formatter.formatStream(filesBuffer, settings);
+        fs.writeFile(settings.filename, content, function(err) {
             if (err) {
                 console.error(err);
             }
@@ -62,21 +55,47 @@ function report(options) {
     return stream;
 }
 
-function getReportedFilePath(options, vinyl) {
-    let result = vinyl.path;
+function getSettings(options) {
+    let settings = options || {};
     
-    if (options) {
-        if (options.pathBase) {
-            const index = result.indexOf(options.pathBase);
+    _.defaults(settings, {
+        sort: false,
+        filename: 'checkstyle.xml',
+        severity: 'error',
+        pathBase: '',
+        pathPrefix: ''
+    });
+    
+    if (settings.pathBase) {
+        settings.pathBase = upath.normalize(settings.pathBase);
+    }
+    
+    if (settings.pathPrefix) {
+        settings.pathPrefix = upath.normalize(settings.pathPrefix);
+    }
+    
+    return settings;
+}
+
+function getReportedFilePath(settings, vinyl) {
+    let result = upath.normalize(vinyl.path);
+    
+    if (settings) {
+        if (settings.pathBase) {
+            const index = result.indexOf(settings.pathBase);
             if (index > 0) {
-                result = result.substr(index + options.pathBase.length);
+                result = result.substr(index + settings.pathBase.length);
             }
         }
         
-        if (options.pathPrefix) {
-            result = options.pathPrefix + result;
+        if (settings.pathPrefix) {
+            result = path.join(settings.pathPrefix, result);
         }
     }
     
-    return path.normalize(result);
+    if (path.sep === path.win32.sep) {
+        result = result.replace(/\//, path.win32.sep);
+    }
+    
+    return result;
 }

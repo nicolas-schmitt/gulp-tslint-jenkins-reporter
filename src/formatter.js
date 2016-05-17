@@ -10,14 +10,14 @@ const DefaultPosition = {
 };
 
 class Formatter {
-    constructor(options) {
-        this.options = _.defaults(options, {
+    constructor(settings) {
+        this.settings = _.defaults(settings, {
             severity: 'error'
         });
     }
     
     formatStream(files) {
-        const xml = _.map(files, 'xml');
+        const xml = _.map(files, 'xml').join('');
         
         return `<?xml version="1.0" encoding="utf-8"?>\n<checkstyle version="4.3">${xml}</checkstyle>`;
     }
@@ -37,7 +37,7 @@ class Formatter {
         const line = start.lineAndCharacter.line;
         const character = start.lineAndCharacter.character;
         const message = _.escape(failure.failure);
-        const severity = this.options.severity;
+        const severity = this.settings.severity;
         
         return `<error line="${line}" column="${character}" severity="${severity}" message="${message}" source="${failure.ruleName}"/>`;
     }
