@@ -15,6 +15,8 @@
     "tslint",
     "checkstyle",
     "reporter",
+    "report",
+    "xml",
     "jenkins",
     "hudson"
   ],
@@ -26,6 +28,9 @@
   "homepage": "https://github.com/nicolas-schmitt/gulp-tslint-jenkins-reporter#readme",
   "engines": {
     "node": ">=4.0.0"
+  },
+  "peerDependencies": {
+    "gulp-tslint": "^5.0.0"
   },
   "dependencies": {
     "lodash": "^4.11.2",

@@ -32,7 +32,7 @@ gulp.task('lint', function() {
             sort: true,
             filename: 'checkstyle.xml',
             severity: 'error',
-            pathBase: '/project'
+            pathBase: '/project',
             pathPrefix: ''
         }));
 });
