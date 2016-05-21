@@ -89,7 +89,7 @@ function getSettings(options) {
     }
 
     if (settings.outputDir) {
-        settings.outputDir = upath.join(__dirname, settings.outputDir);
+        settings.outputDir = upath.normalize(settings.outputDir);
     }
     
     return settings;
