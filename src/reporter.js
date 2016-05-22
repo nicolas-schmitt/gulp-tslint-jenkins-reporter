@@ -46,6 +46,8 @@ function report(options) {
         
         const content = formatter.formatStream(filesBuffer, settings);
 
+        outputStream.end();
+
         if (settings.outputDir) {
             mkdirp(settings.outputDir, function() {
                 outputReport(upath.join(settings.outputDir, settings.filename), content, done);
@@ -63,8 +65,7 @@ function outputReport(filename, content, done) {
         if (err) {
             console.error(err);
         }
-        
-        outputStream.end();
+
         done();
     });
 }
