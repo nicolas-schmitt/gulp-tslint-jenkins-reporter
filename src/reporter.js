@@ -48,23 +48,23 @@ function report(options) {
 
         if (settings.outputDir) {
             mkdirp(settings.outputDir, function() {
-                outputReport(upath.join(settings.outputDir, settings.filename), content, done);
+                outputReport(upath.join(settings.outputDir, settings.filename), content);
             });
         } else {
-            outputReport(settings.filename, content, done);
+            outputReport(settings.filename, content);
         }
+
+        done();
     };
     
     return stream;
 }
 
-function outputReport(filename, content, done) {
+function outputReport(filename, content) {
     fs.writeFile(filename, content, function(err) {
         if (err) {
             console.error(err);
         }
-        
-        return done();
     });
 }
 
