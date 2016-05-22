@@ -64,7 +64,7 @@ function outputReport(filename, content, done) {
             console.error(err);
         }
         
-        done();
+        return done();
     });
 }
 
