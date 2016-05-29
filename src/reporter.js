@@ -7,13 +7,15 @@ const path = require('path');
 const plexer = require('plexer');
 const Stream = require('readable-stream');
 const upath = require('upath');
+const mkdirp = require('mkdirp');
 
 const Formatter = require('./formatter');
 
 module.exports = {
     getReportedFilePath: getReportedFilePath,
     getSettings: getSettings,
-    report: report
+    report: report,
+    outputReport: outputReport
 };
 
 function report(options) {
@@ -43,16 +45,29 @@ function report(options) {
         }
         
         const content = formatter.formatStream(filesBuffer, settings);
-        fs.writeFile(settings.filename, content, function(err) {
-            if (err) {
-                console.error(err);
-            }
-            
-            done();
-        });
+
+        outputStream.end();
+
+        if (settings.outputDir) {
+            mkdirp(settings.outputDir, function() {
+                outputReport(upath.join(settings.outputDir, settings.filename), content, done);
+            });
+        } else {
+            outputReport(settings.filename, content, done);
+        }
     };
     
     return stream;
+}
+
+function outputReport(filename, content, done) {
+    fs.writeFile(filename, content, function(err) {
+        if (err) {
+            console.error(err);
+        }
+
+        done();
+    });
 }
 
 function getSettings(options) {
@@ -61,6 +76,7 @@ function getSettings(options) {
     _.defaults(settings, {
         sort: false,
         filename: 'checkstyle.xml',
+        outputDir: '',
         severity: 'error',
         pathBase: '',
         pathPrefix: ''
@@ -72,6 +88,10 @@ function getSettings(options) {
     
     if (settings.pathPrefix) {
         settings.pathPrefix = upath.normalize(settings.pathPrefix);
+    }
+
+    if (settings.outputDir) {
+        settings.outputDir = upath.normalize(settings.outputDir);
     }
     
     return settings;
