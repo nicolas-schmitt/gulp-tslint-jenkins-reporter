@@ -14,8 +14,7 @@ const Formatter = require('./formatter');
 module.exports = {
     getReportedFilePath: getReportedFilePath,
     getSettings: getSettings,
-    report: report,
-    outputReport: outputReport
+    report: report
 };
 
 function report(options) {
@@ -30,6 +29,7 @@ function report(options) {
     inputStream._transform = function(file, unused, done) {
         const vinyl = new File(file);
         const reportPath = getReportedFilePath(settings, vinyl);
+        
         filesBuffer.push({
             xml: formatter.formatFile(reportPath, file.tslint.failures),
             path: reportPath
@@ -45,42 +45,35 @@ function report(options) {
         }
         
         const content = formatter.formatStream(filesBuffer, settings);
-
         outputStream.end();
 
-        if (settings.outputDir) {
-            mkdirp(settings.outputDir, function() {
-                outputReport(upath.join(settings.outputDir, settings.filename), content, done);
+        mkdirp(settings.outputDir, function() {
+            fs.writeFile(settings.filename, content, function(err) {
+                if (err) {
+                    console.error(err);
+                }
+        
+                done();
             });
-        } else {
-            outputReport(settings.filename, content, done);
-        }
+        });
     };
     
     return stream;
 }
 
-function outputReport(filename, content, done) {
-    fs.writeFile(filename, content, function(err) {
-        if (err) {
-            console.error(err);
-        }
-
-        done();
-    });
-}
-
 function getSettings(options) {
-    let settings = options || {};
+    const settings = options || {};
     
     _.defaults(settings, {
         sort: false,
         filename: 'checkstyle.xml',
-        outputDir: '',
         severity: 'error',
         pathBase: '',
         pathPrefix: ''
     });
+    
+    settings.filename = upath.normalize(settings.filename);
+    settings.outputDir = path.dirname(settings.filename);
     
     if (settings.pathBase) {
         settings.pathBase = upath.normalize(settings.pathBase);
@@ -88,10 +81,6 @@ function getSettings(options) {
     
     if (settings.pathPrefix) {
         settings.pathPrefix = upath.normalize(settings.pathPrefix);
-    }
-
-    if (settings.outputDir) {
-        settings.outputDir = upath.normalize(settings.outputDir);
     }
     
     return settings;
