@@ -4,7 +4,8 @@
   "description": "gulp-tslint checkstyle reporter, to be used by Jenkins (Hudson). Writes output to an xml file.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
