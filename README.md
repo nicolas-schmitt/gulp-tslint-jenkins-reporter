@@ -48,7 +48,7 @@ will sort the files alphabetically within the report using their path.
 **filename**  
 type: `string`  
 default: `checkstyle.xml`  
-the filename to write the report.
+the filename to write the report. Works with a path as well, missing directories will be created.
 
 **severity**  
 type: `string`  
