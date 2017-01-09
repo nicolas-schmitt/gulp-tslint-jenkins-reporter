@@ -22,7 +22,7 @@ describe('formatter', function() {
                 });
             });
         });
-        
+
         it('should return the xml corresponding to the failure', function() {
             _.forEach(inputMock, function(input, name) {
                 _.forEach(input.tslint.failures, function(failure, i) {
@@ -33,7 +33,7 @@ describe('formatter', function() {
             });
         });
     });
-    
+
     describe('#formatFile', function() {
         it('should return a valid xml', function() {
             _.forEach(inputMock, function(input) {
@@ -42,13 +42,13 @@ describe('formatter', function() {
                 expect(actualXml).xml.to.be.valid();
             });
         });
-        
+
         it('should return an empty file element when there is no failure', function() {
             const formatter = new Formatter();
             expect(formatter.formatFile(inputMock.clean.basename, inputMock.clean.tslint.failures))
                 .to.equal(outputMock.clean.file);
         });
-        
+
         _.forEach(inputMock, function(input, name) {
             const failureCount = input.tslint.failures.length;
             it(`should call #formatError ${failureCount} time(s) for ${name}`, function() {
@@ -58,7 +58,7 @@ describe('formatter', function() {
                 expect(spy).to.have.been.called.exactly(failureCount);
             });
         });
-        
+
         it('should return a file element with as many children as failure', function() {
             _.forEach(inputMock, function(input) {
                 const formatter = new Formatter();
@@ -68,7 +68,7 @@ describe('formatter', function() {
             });
         });
     });
-    
+
     describe('#formatStream', function() {
         it('should return a valid xml', function() {
             const formatter = new Formatter();
@@ -81,7 +81,7 @@ describe('formatter', function() {
             const actualXml = formatter.formatStream(files);
             expect(actualXml).xml.to.be.valid();
         });
-        
+
         it('should return a checkstyle element with as many children as file', function() {
             const formatter = new Formatter();
             const files = _.map([outputMock.clean, outputMock.dirty, outputMock.awful], function(mock) {
