@@ -4,6 +4,13 @@ node_js:
   - "6"
   - "5"
   - "4"
-  - "4.2"
-  - "4.1"
-  - "4.0"
+cache:
+  directories:
+    - node_modules
+install:
+  - "npm install"
+  - "./node_modules/.bin/judge install $JUDGE_CASE --overwrite"
+env:
+  - "JUDGE_CASE=gulp-tslint-5"
+  - "JUDGE_CASE=gulp-tslint-6"
+  - "JUDGE_CASE=gulp-tslint-7"

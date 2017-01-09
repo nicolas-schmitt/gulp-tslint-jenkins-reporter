@@ -3,7 +3,7 @@ class Awful {
 
     constructor() {
     }
-    
+
     chop() {
         var tab = []
         return tab['hello'];

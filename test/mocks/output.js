@@ -38,7 +38,7 @@ function setFileProperty(data) {
     data.file = _.reduce(data.failures, (result, failure) => {
         return result += failure;
     }, `<file name="${data.fileName}">`);
-    
+
     data.file += '</file>';
 }
 
