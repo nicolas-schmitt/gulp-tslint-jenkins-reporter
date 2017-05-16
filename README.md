@@ -40,30 +40,31 @@ gulp.task('lint', function() {
 
 ## Options
 
-**sort**  
-type: `boolean`  
-default: `false`  
+**sort**
+type: `boolean`
+default: `false`
 will sort the files alphabetically within the report using their path.
 
-**filename**  
-type: `string`  
-default: `checkstyle.xml`  
+**filename**
+type: `string`
+default: `checkstyle.xml`
 the filename to write the report. Works with a path as well, missing directories will be created.
 
-**severity**  
-type: `string`  
-default: `error`  
-values: `error`|`warning`|`info`  
-the checkstyle format has a severity field, tslint doesn't. This will set the severity field for every reported failure.
+**severity**
+type: `string`
+default: `warning`
+values: `error`|`warning`|`info`
+Since version 5.0, tslint does provide a severity field.
+This option will be kept for backward compatibility and act as a default value for failures without severity.
 
-**pathBase**  
-type: `string`  
-default: `''`  
+**pathBase**
+type: `string`
+default: `''`
 If given, the path of the files will be rebased according to the value. For instance, if your file path is
 ```
 /my/awesome/yet/too/long/path/for/my/file.ts
 ```
-and that you set 
+and that you set
 ```javascript
 {
     pathBase: '/path/for/my'
@@ -74,9 +75,9 @@ you will end up with
 /my/file.ts
 ```
 
-**pathPrefix**  
-type: `string`  
-default: `''`  
+**pathPrefix**
+type: `string`
+default: `''`
 a prefix to add to the path. Given the previous example, you could also add this :
 ```javascript
 {
