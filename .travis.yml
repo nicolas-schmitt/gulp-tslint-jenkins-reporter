@@ -1,16 +1,18 @@
 language: node_js
 node_js:
-  - "node"
-  - "6"
-  - "5"
-  - "4"
+  - 7
+  - 6
+  - 5
+  - 4
 cache:
   directories:
     - node_modules
 install:
-  - "npm install"
-  - "./node_modules/.bin/judge install $JUDGE_CASE --overwrite"
+  - npm install
+  - npm install typescript@$TYPESCRIPT_VERSION tslint@$TSLINT_VERSION gulp-tslint@$GULP_TSLINT_VERSION
 env:
-  - "JUDGE_CASE=gulp-tslint-5"
-  - "JUDGE_CASE=gulp-tslint-6"
-  - "JUDGE_CASE=gulp-tslint-7"
+  matrix:
+    - GULP_TSLINT_VERSION="^8.0.0" TSLINT_VERSION=">=5.0.0-dev" TYPESCRIPT_VERSION=">=2.0.0"
+    - GULP_TSLINT_VERSION="^7.1.0" TSLINT_VERSION=">=4.0.0-dev" TYPESCRIPT_VERSION=">=2.0.0"
+    - GULP_TSLINT_VERSION="^6.1.3" TSLINT_VERSION="^3.7.3" TYPESCRIPT_VERSION=">=1.7.3"
+    - GULP_TSLINT_VERSION="^5.0.0" TSLINT_VERSION="^3.7.3" TYPESCRIPT_VERSION=">=1.7.3"
