@@ -19,27 +19,28 @@ class Formatter {
     formatStream(files) {
         const xml = _.map(files, 'xml').join('');
 
-        return `<?xml version="1.0" encoding="utf-8"?>\n<checkstyle version="4.3">${xml}</checkstyle>`;
+        return `<?xml version="1.0" encoding="utf-8"?>\n<checkstyle version="4.3">${xml}\n</checkstyle>`;
     }
 
     formatFile(fileName, failures) {
-        let result = _.reduce(failures, (rslt, failure) => {
-            return rslt += this.formatError(failure);
-        }, `<file name="${fileName}">`);
+        const result = [`\n<file name="${fileName}">`];
+        _.forEach(failures, (failure) => {
+            result.push(this.formatError(failure));
+        });
+        result.push('\n</file>');
 
-        result += '</file>';
-
-        return result;
+        return result.join('');
     }
 
     formatError(failure) {
         const start = failure.startPosition || DefaultPosition;
         const line = start.lineAndCharacter.line;
-        const character = start.lineAndCharacter.character;
+        const column = start.lineAndCharacter.character;
         const message = _.escape(failure.failure);
-        const severity = this.settings.severity;
+        const severity = failure.ruleSeverity || this.settings.severity;
+        const ruleName = failure.ruleName;
 
-        return `<error line="${line}" column="${character}" severity="${severity}" message="${message}" source="${failure.ruleName}"/>`;
+        return `\n<error line="${line}" column="${column}" severity="${severity}" message="${message}" source="${ruleName}"/>`;
     }
 }
 
