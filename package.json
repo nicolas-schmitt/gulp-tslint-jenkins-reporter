@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "lint": "eslint src",
-    "full-test": "judge run gulp-tslint-5 npm test;judge run gulp-tslint-6 npm test;judge run gulp-tslint-7 npm test"
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
