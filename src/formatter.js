@@ -34,8 +34,8 @@ class Formatter {
 
     formatError(failure) {
         const start = failure.startPosition || DefaultPosition;
-        const line = start.lineAndCharacter.line;
-        const column = start.lineAndCharacter.character;
+        const line = start.lineAndCharacter.line + 1;
+        const column = start.lineAndCharacter.character + 1;
         const message = _.escape(failure.failure);
         const severity = failure.ruleSeverity || this.settings.severity;
         const ruleName = failure.ruleName;
