@@ -1,6 +1,6 @@
 {
   "name": "gulp-tslint-jenkins-reporter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "gulp-tslint checkstyle reporter, to be used by Jenkins (Hudson). Writes output to an xml file.",
   "main": "index.js",
   "scripts": {
