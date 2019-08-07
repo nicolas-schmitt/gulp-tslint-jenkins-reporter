@@ -1,12 +1,12 @@
 class Dirty {
-    private str = '';
+  private str = ''
 
-    constructor() {
-        this.str = 'woo';
-    }
+  constructor() {
+    this.str = 'woo'
+  }
 
-    chop(): string {
-        const tab = this.str.split('/');
-        return tab[0];
-    }
+  chop(): string {
+    const tab = this.str.split('/')
+    return tab[0]
+  }
 }

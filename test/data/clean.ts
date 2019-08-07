@@ -1,12 +1,12 @@
 class Clean {
-    private str: string = '';
+  private str: string = ''
 
-    constructor() {
-        this.str = 'woo';
-    }
+  constructor() {
+    this.str = 'woo'
+  }
 
-    public chop(): string {
-        const tab = this.str.split('/');
-        return tab[0];
-    }
+  public chop(): string {
+    const tab = this.str.split('/')
+    return tab[0]
+  }
 }
