@@ -1,0 +1,18 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# for all files
+[*]
+charset = utf-8 # UTF-8 charset
+end_of_line = lf # unix end of line
+indent_style = space # indent using spaces
+indent_size = 2 # indent size is 2 spaces
+insert_final_newline = true # always insert a new line at EOF
+trim_trailing_whitespace = true # remove white spaces at EOL
+
+# markdown overrides
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
