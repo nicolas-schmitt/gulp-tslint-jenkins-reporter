@@ -1,6 +1,7 @@
 'use strict'
 
-const _ = require('lodash')
+const defaults = require('lodash.defaults')
+const sortBy = require('lodash.sortby')
 const File = require('vinyl')
 const fs = require('fs')
 const path = require('path')
@@ -34,7 +35,7 @@ function report(options) {
 
   inputStream._flush = done => {
     if (settings.sort) {
-      filesBuffer = _.sortBy(filesBuffer, 'path')
+      filesBuffer = sortBy(filesBuffer, 'path')
     }
 
     const content = formatter.formatStream(filesBuffer, settings)
@@ -57,7 +58,7 @@ function report(options) {
 function getSettings(options) {
   const settings = options || {}
 
-  _.defaults(settings, {
+  defaults(settings, {
     sort: false,
     filename: 'checkstyle.xml',
     severity: 'error',

@@ -1,6 +1,7 @@
 'use strict'
 
-const _ = require('lodash')
+const defaults = require('lodash.defaults')
+const escape = require('lodash.escape')
 
 const DefaultPosition = {
   position: 0,
@@ -12,7 +13,7 @@ const DefaultPosition = {
 
 class Formatter {
   constructor(settings) {
-    this.settings = _.defaults(settings, {
+    this.settings = defaults(settings, {
       severity: 'error',
     })
   }
@@ -35,7 +36,7 @@ class Formatter {
     const start = failure.startPosition || DefaultPosition
     const line = start.lineAndCharacter.line + 1
     const column = start.lineAndCharacter.character + 1
-    const message = _.escape(failure.failure)
+    const message = escape(failure.failure)
     const severity = failure.ruleSeverity || this.settings.severity
     const ruleName = failure.ruleName
 
