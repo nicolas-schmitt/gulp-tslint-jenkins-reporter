@@ -1,5 +1,7 @@
 # dev dependencies
-.eslintrc
+.editorconfig
+.eslintrc.yaml
+.prettierrc.yaml
 .travis.yml
 test
 sandbox
