@@ -1,3 +1,3 @@
-'use strict';
+'use strict'
 
-module.exports = require('./src/reporter').report;
+module.exports = require('./src/reporter').report

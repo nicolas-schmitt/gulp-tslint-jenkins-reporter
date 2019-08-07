@@ -5,7 +5,7 @@ const sortBy = require('lodash.sortby')
 const File = require('vinyl')
 const fs = require('fs')
 const path = require('path')
-const plexer = require('plexer')
+const duplexer = require('duplexer')
 const Stream = require('readable-stream')
 const upath = require('upath')
 const mkdirp = require('mkdirp')
@@ -14,7 +14,7 @@ const Formatter = require('./formatter')
 function report(options) {
   const inputStream = new Stream.Transform({ objectMode: true })
   const outputStream = new Stream.PassThrough({ objectMode: true })
-  const stream = plexer({ objectMode: true }, inputStream, outputStream)
+  const stream = duplexer(inputStream, outputStream)
   let filesBuffer = []
 
   const settings = getSettings(options)
