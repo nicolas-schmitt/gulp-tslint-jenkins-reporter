@@ -1,11 +1,10 @@
 class Awful {
-    private str = '';
+  private str = ''
 
-    constructor() {
-    }
+  constructor() {}
 
-    chop() {
-        var tab = []
-        return tab['hello'];
-    }
+  chop() {
+    var tab = []
+    return tab['hello']
+  }
 }
